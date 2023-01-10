@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 # nici personal driver path
 DRIVER_PATH = 'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe'
-URL = "https://www.personality-database.com/profile/22567"
+URL = "https://www.personality-database.com/profile/495096"
 
 # function for 
 #def launchBrowser():
