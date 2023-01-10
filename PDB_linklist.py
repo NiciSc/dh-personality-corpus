@@ -7,6 +7,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
+import os
 
 # this is for clicking something
 from selenium.webdriver.common.action_chains import ActionChains
@@ -16,7 +17,7 @@ from selenium.webdriver.support.select import Select
 DRIVER_PATH = 'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe'
 URL = "https://www.personality-database.com/profile?pid=2&sort=alphabet"
 page_counter = 0
-max_page_count = 210
+max_page_count = 119
 
 #launching the browser
 chrome_options = Options()
@@ -55,12 +56,12 @@ while (page_counter < max_page_count):
 
     page_counter +=1
     print(page_counter)
-
-#print(link_list)    
+  
 df = pd.DataFrame(link_list)
-#print(df)
-df.to_csv('linklist1000.csv')
+output_path = "C:/Users/Harry/Documents/GitHub/dh-personality-corpus/linklist_pdb.csv"
+df.to_csv(output_path, mode='a', header=not os.path.exists(output_path), index=False)
+
+
+#df.to_csv('linklist_superheros.csv')
 #driver.close()
-#print(driver.page_source)
-#print(char_name)
 #driver.quit()
