@@ -1,0 +1,92 @@
+from selenium import webdriver 
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+import csv 
+import pandas as pd
+import os
+
+
+# using selenium for scraping wanted html areas
+# html is not structured the best -> using APIs instead
+
+
+# nici personal driver path
+DRIVER_PATH = 'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe'
+URL = "https://www.personality-database.com/profile/1"
+
+html_corp = []
+#data = 'links_short.csv'
+
+
+
+chrome_options = Options()
+   #chrome_options.binary_location="../Google Chrome"
+chrome_options.add_argument("--window-size=1020,1080");
+driver = webdriver.Chrome('C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe', options=chrome_options)
+driver.maximize_window()
+
+driver.get(URL)
+
+windows_before  = driver.current_window_handle
+wait = WebDriverWait(driver, 10)
+
+# zeitverzögerung damit die ganze seite geladen werden kann
+time.sleep(30) 
+
+char_profile_desc = driver.find_element(By.CLASS_NAME, 'rc-col-sm-12')
+char_profile_desc_html = char_profile_desc.get_attribute('innerHTML')
+html_corp.append(char_profile_desc_html)
+
+# char_assoc_list = driver.find_element(By.CLASS_NAME, 'pdb-profile-association-list')
+# char_assoc_list_html = char_assoc_list.get_attribute('innerHTML')
+# html_corp.append(char_assoc_list_html)
+
+# char_vote_count = driver.find_element(By.CLASS_NAME, 'vote')
+# char_vote_count_html = char_vote_count.get_attribute('innerHTML')
+# html_corp.append(char_vote_count_html)
+
+# char_personality_rows = driver.find_element(By.CLASS_NAME, 'rc-row')
+# char_personality_rows_html = char_personality_rows.get_attribute('innerHTML')
+# html_corp.append(char_personality_rows_html)
+
+
+
+#print(char_content).encode('utf-8')
+print('das hier' + str(html_corp)) #.encode('utf-8')
+#print(html)
+
+#df = pd.DataFrame(char_content)
+# output_path = "C:/Users/Harry/Documents/GitHub/dh-personality-corpus/char.html"
+# char_content.to_html(open(output_path, mode='a'))
+
+
+
+
+
+# with open(data, 'r') as csvfile:
+#     datareader = csv.reader(csvfile)
+#     for row in datareader:
+#         driver.get(row)
+#         #char_html = driver.page_source
+#         time.sleep(30)
+
+
+        #print(char_html)
+        #print(char_content)
+
+       
+
+
+# der driver müsste eigentlich wieder geschlossen werden, aber der crasht eh immer lol bzw. geht halt zu wenn er alles gemacht hat was er machen soll
+#driver.close()
+#print(driver.page_source)
+#print(char_name)
+#driver.quit()
+#print(driver.find_element(By.XPATH, '//*[@id="root"]/div/section/main/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/h1').text)   
+
+#while(True):
+ #   pass
+#launchBrowser()
