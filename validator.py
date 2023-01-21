@@ -35,7 +35,7 @@ print(f'{errorCount} of {fileCount} files were faulty ({errorRate}%)')
 log = open(rf'{category}_log.txt', 'a')
 dateStr = time.strftime('%d.%m.%Y')
 timeStr = time.strftime('%H:%M:%S')
-log.write(f'Validierung am {dateStr} um {timeStr} Uhr:\nFehler: {errorCount}\nGesamt: {fileCount}\nFehlerquote: {errorRate}%\n\n')
+log.write(f'Validierung am {dateStr} um {timeStr} Uhr:\nFehler: {errorCount}\nRichtig: {fileCount - errorCount}\nGesamt: {fileCount}\nFehlerquote: {errorRate}%\n\n')
 log.close()
 #Zweiter Teil:
 #Alle fehlerhaften Profile koennen optional geloescht werden
