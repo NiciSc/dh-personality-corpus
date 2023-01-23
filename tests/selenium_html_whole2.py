@@ -59,17 +59,68 @@ with open(data_path, 'r') as csvfile:
         soup = BeautifulSoup(html, "html.parser")
 
         #extrahieren der teile wir wollen (so wie ich das auch ursprünglich machen wollte, das ist dann direkt beim scrapen schon bissl aufgeräumt)
-        char_name = soup.find('div', class_ = 'prifile-info').text #.encode('utf-8')
-        char_personality_info = soup.find('div', class_ = 'profile-personality').text
+        char_name = soup.find('div', class_ = 'rc-col rc-col-8 rc-col-sm-12').text #.encode('utf-8')
+        personality_quick_info = soup.find('div', class_ = 'profile-personality').text
+        medium_name_par = soup.find('a', class_ = 'link')
+        medium_name = medium_name_par.find_next('h1').text
+        last_update = soup.find('span', class_ = 'last-update').text.split(': ')[1]
+        cut_last_update = last_update
+    
+        #optionale info
+        added_by = soup.find('label', class_ = 'contributor')
+        if added_by is not None:
+            added_by = added_by.get_text().split('Added by ')[1]
+        else:
+            added_by = ''
+
+        #more_media = soup.find('span', class_ = 'group-name').next_element.next_element.next_element.next_element
+        #print(more_media)
+        # works = more_media[1].next.text
+        # acting = more_media[2].text
+
+        total_votes_count = soup.find('h2').text.split(' Votes')[0]
+        
+        mbti_letters = soup.findAll('label', class_ = 'letter')
+        mbti_percentages = soup.findAll('label', class_ = 'percent')
+
+        mbti_energy_letter = mbti_letters[0].text
+        mbti_energy_percent = mbti_percentages[0].text
+        mbti_attention_letter = mbti_letters[1].text
+        mbti_attention_percent = mbti_percentages[1].text
+        mbti_decision_letter = mbti_letters[2].text
+        mbti_decision_percent = mbti_percentages[2].text
+        mbti_living_letter = mbti_letters[3].text
+        mbti_living_percent = mbti_percentages[3].text
+
+
+        mbti_values = {
+            'mbti_energy_letter' : mbti_energy_letter,
+            'mbti_energy_percent' : mbti_energy_percent, 
+            'mbti_attention_letter' : mbti_attention_letter,
+            'mbti_attention_percent' : mbti_attention_percent,
+            'mbti_decision_letter' : mbti_decision_letter,
+            'mbti_decision_percent' : mbti_decision_percent, 
+            'mbti_living_letter' : mbti_living_letter,
+            'mbti_living_percent' : mbti_living_percent,
+
+
+        }
 
         data = {
+            'id' : id,
             'name' : char_name,
-            'personality_quick_info' : char_personality_info
+            'personality_quick_info' : personality_quick_info,
+            'medium_name' : medium_name,
+            'last_update' : cut_last_update,
+            'added_by' : added_by,
+            #'works' : works
+            'total_votes_count' : total_votes_count,
+            'mbti' : mbti_values
+
         }
 
         with open(f'profiles_subcat/webcomics3/{id}.json', 'w') as f:
                 json.dump(data, f)
-                #f.write(char_content)
 
     
         
