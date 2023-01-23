@@ -15,8 +15,12 @@ for root, dirs, files in os.walk('.'):
 	for file in files:
 		if(file.endswith(".json")):
 			fileCount += 1
-			data = json.load(open(os.path.join(file), 'r'))
 			idFromFilename = file.split('.')[0]
+			try:
+				data = json.load(open(os.path.join(file), 'r'))
+			except:
+				print(rf"Fehler bei {idFromFilename}")
+				os.remove(idFromFilename+'.json')
 			#Check ob ein Profil gescraped wurde, welches keine ID besitzt
 			if 'id' in data:
 				idFromData = str(data['id'])
