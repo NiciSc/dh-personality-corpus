@@ -1,66 +1,77 @@
 from selenium import webdriver 
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-#from webdriver_manager.chrome import ChromeDriverManager
 import time
 import csv 
-import codecs
 import json
-import html
 from bs4 import BeautifulSoup
 import os
 
+#       _                                      _                                #
+#      | |                                    | |                               #
+#   ___| |__   ___   ___  ___  ___    ___ __ _| |_ ___  __ _  ___  _ __ _   _   #
+#  / __| '_ \ / _ \ / _ \/ __|/ _ \  / __/ _` | __/ _ \/ _` |/ _ \| '__| | | |  #
+# | (__| | | | (_) | (_) \__ \  __/ | (_| (_| | ||  __/ (_| | (_) | |  | |_| |  #
+#  \___|_| |_|\___/ \___/|___/\___|  \___\__,_|\__\___|\__, |\___/|_|   \__, |  #
+#                                                       __/ |            __/ |  #
+#                                                      |___/            |___/   #
 
-# this is for crawling the html using selenium 
-# we decided againt this method as it took more time to scrape and also as the website disconnects quicker
+category = 'theatre'
+user = 'raphi'
 
-# nici personal driver path
-DRIVER_PATH =r'C:/Users/Raphael/Documents/Studium/Master/Digital Humanities/chromedriver/chromedriver.exe'
-#URL = "https://www.personality-database.com/profile/1"
+# category has to be either:                                                    #
+# anime cartoon comics gaming literature movie superheroes theatre tv webcomics #
 
-data_path = 'links/ids_tv.csv'
+data_paths = {
+    'anime':'links/ids_theatre.csv', 
+    'cartoon':'links/ids_catroon.csv',
+    'comics':'links/ids_comics.csv',
+    'gaming':'links/ids_gaming.csv',
+    'literature':'links/ids_literature.csv',
+    'movie':'links/ids_movie.csv',
+    'superheroes':'links/ids_superheroes.csv',
+    'theatre':'links/ids_theatre.csv',
+    'tv':'links/ids_tv.csv',
+    'webcomics':'links/ids_webcomics.csv'}
 
-# coole options für chrome 
+driver_paths = {
+    'nici':r'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe',
+    'michelle':r'X:/YOUR/DRIVER/PATH/operadriver.exe',
+    'raphi':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
+}
+
+# Chrome Options:
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
-options.add_argument('--disable-gpu')
+options.add_argument('--disable-gpu') 
 options.add_argument("--remote-debugging-port=9222")
 options.add_argument('start-maximized')
 options.add_argument('disable-infobars')
 options.set_capability('acceptInsecureCerts', True)
 
-with open(data_path, 'r') as csvfile:
+# Opera Options:
+# https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif
+
+with open(data_paths[f'{category}'], 'r') as csvfile:
     datareader = csv.reader(csvfile)
     row_count = sum(1 for row in datareader)
 
 scrapedElements = 0
 
-print(rf'RC: {row_count}')
-
-# über linklist iterieren
 def scrape():
-    global scrapedElements
+    global scrapedElements, category, row_count, DRIVER_PATH, user
     scrapedElements = 0
-    with open(data_path, 'r') as csvfile:
+    with open(data_paths[f'{category}'], 'r') as csvfile:
         datareader = csv.reader(csvfile)
         for row in datareader:
             id = row[0]
-            print(id)
-
-            global row_count
             
-            if os.path.exists(f'profiles_subcat/tv/{id}.json'):
+            if os.path.exists(f'profiles_subcat/{category}/{id}.json'):
                 scrapedElements += 1
                 continue
                 
             url_profile = (f"https://api.personality-database.com/api/v1/profile/{id}")
-            #url_profile = ("https://www.personality-database.com/profile/1")
             
-            driver = webdriver.Chrome(r'C:/Users/Raphael/Documents/Studium/Master/Digital Humanities/chromedriver/chromedriver.exe', options=options)
+            driver = webdriver.Chrome(f'{driver_paths[user]}', options=options)
             driver.get(url_profile)
-            #char_html = driver.page_source
             time.sleep(0.1)
 
             html = driver.page_source
@@ -72,70 +83,19 @@ def scrape():
                 pre = soup.find('pre').text
                 json_pre = json.loads(pre)
             except json.JSONDecodeError as j:
-                print(rf'Encountered JSON Error: {j}')
+                print(f'Encountered JSON-Error: {j}\nRestarting...')
                 break
             except AttributeError:
+                print(f'Encountered Attribute-Error: {j}\nRestarting...')
                 break
 
-            with open(f'profiles_subcat/tv/{id}.json', 'w') as f:
+            with open(f'profiles_subcat/{category}/{id}.json', 'w') as f:
                     json.dump(json_pre, f)
-                    #f.write(data) this is html dump
 
             scrapedElements += 1
+            print(rf'Scraping ID: {id}')
             print(rf'{round((scrapedElements/row_count)*100,2)}% scraped')
-            break
 
 while scrapedElements < row_count:
     time.sleep(1)
     scrape()
-
-
-       
-
-#AUSRANGIERT UND WIRD VLT NOCH GEBRAUCHT
-
-#driver.close()
-#print(driver.page_source)
-#print(char_name)
-#driver.quit()
-#print(driver.find_element(By.XPATH, '//*[@id="root"]/div/section/main/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/h1').text)   
-
-#while(True):
- #   pass
-#launchBrowser()
-
-
-
-#driver = webdriver.Chrome(ChromeDriverManager().install(),  chrome_options= options)
-#driver.maximize_window()
-#driver.get(URL)
-#windows_before  = driver.current_window_handle
-#wait = WebDriverWait(driver, 10).until(EC.presence_of_element_located("profile-info"))
-
-#close_ad = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, 'ezmob-footer-close'))).click()
-
-
-
-
-#options.add_argument('--disable-extensions')
-#options.add_argument('--no-sandbox')
-#options.add_argument('--disable-dev-shm-usage')
-#options.add_argument("--disable-setuid-sandbox")
-#options.add_argument("--disable-dev-shm-usage")
-
-
-
-#soup = BeautifulSoup(html, 'html.parser')
-
-
-# options = webdriver.ChromeOptions()
-#    #chrome_options.binary_location="../Google Chrome"
-
-# caps = webdriver.DesiredCapabilities.CHROME.copy()
-# caps['acceptInsecureCerts'] = True
-
-#'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe
-
-        #pre_clean = pre.replace('\\', '')
-        
-        #data = {"{id}": [pre.text.lstrip['{'].rstrip['}'] for pre in soup.find('pre')]}
