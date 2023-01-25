@@ -17,10 +17,10 @@ import os
 # we decided againt this method as it took more time to scrape and also as the website disconnects quicker
 
 # nici personal driver path
-DRIVER_PATH ='C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
+DRIVER_PATH =r'C:/Users/Raphael/Documents/Studium/Master/Digital Humanities/chromedriver/chromedriver.exe'
 #URL = "https://www.personality-database.com/profile/1"
 
-data_path = 'links/ids_webcomics.csv'
+data_path = 'links/ids_tv.csv'
 
 # coole options für chrome 
 options = webdriver.ChromeOptions()
@@ -31,29 +31,34 @@ options.add_argument('start-maximized')
 options.add_argument('disable-infobars')
 options.set_capability('acceptInsecureCerts', True)
 
-scrapedElements = 0
-
 with open(data_path, 'r') as csvfile:
     datareader = csv.reader(csvfile)
     row_count = sum(1 for row in datareader)
 
+scrapedElements = 0
+
+print(rf'RC: {row_count}')
+
 # über linklist iterieren
 def scrape():
+    global scrapedElements
+    scrapedElements = 0
     with open(data_path, 'r') as csvfile:
         datareader = csv.reader(csvfile)
-        # indexzeile weglassen
-        next(datareader)
         for row in datareader:
             id = row[0]
             print(id)
 
-            if os.path.exists(f'profiles_subcat/webcomics/{id}.json'):
+            global row_count
+            
+            if os.path.exists(f'profiles_subcat/tv/{id}.json'):
+                scrapedElements += 1
                 continue
                 
             url_profile = (f"https://api.personality-database.com/api/v1/profile/{id}")
             #url_profile = ("https://www.personality-database.com/profile/1")
             
-            driver = webdriver.Chrome('C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe', options=options)
+            driver = webdriver.Chrome(r'C:/Users/Raphael/Documents/Studium/Master/Digital Humanities/chromedriver/chromedriver.exe', options=options)
             driver.get(url_profile)
             #char_html = driver.page_source
             time.sleep(0.1)
@@ -69,13 +74,16 @@ def scrape():
             except json.JSONDecodeError as j:
                 print(rf'Encountered JSON Error: {j}')
                 break
+            except AttributeError:
+                break
 
-            with open(f'profiles_subcat/webcomics/{id}.json', 'w') as f:
+            with open(f'profiles_subcat/tv/{id}.json', 'w') as f:
                     json.dump(json_pre, f)
                     #f.write(data) this is html dump
 
-            global scrapedElements
             scrapedElements += 1
+            print(rf'{round((scrapedElements/row_count)*100,2)}% scraped')
+            break
 
 while scrapedElements < row_count:
     time.sleep(1)
