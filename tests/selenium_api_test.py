@@ -3,24 +3,24 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
 import time
 import csv 
 import codecs
 import json
 import html
 from bs4 import BeautifulSoup
-
+import os
 
 
 # this is for crawling the html using selenium 
 # we decided againt this method as it took more time to scrape and also as the website disconnects quicker
 
 # nici personal driver path
-DRIVER_PATH = 'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe'
+DRIVER_PATH ='C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
 #URL = "https://www.personality-database.com/profile/1"
 
-data_path = 'links/ids_anime.csv'
+data_path = 'links/ids_webcomics.csv'
 
 # coole options für chrome 
 options = webdriver.ChromeOptions()
@@ -31,39 +31,55 @@ options.add_argument('start-maximized')
 options.add_argument('disable-infobars')
 options.set_capability('acceptInsecureCerts', True)
 
-# über linklist iterieren
+scrapedElements = 0
+
 with open(data_path, 'r') as csvfile:
     datareader = csv.reader(csvfile)
+    row_count = sum(1 for row in datareader)
 
-    # indexzeile weglassen
-    next(datareader)
-    for row in datareader:
-        id = row[0]
-        print(id)
-        
-        url_profile = (f"https://api.personality-database.com/api/v1/profile/{id}")
-        #url_profile = ("https://www.personality-database.com/profile/1")
-        
-        driver = webdriver.Chrome('C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe', options=options)
-        driver.get(url_profile)
-        #char_html = driver.page_source
-        time.sleep(0.1)
+# über linklist iterieren
+def scrape():
+    with open(data_path, 'r') as csvfile:
+        datareader = csv.reader(csvfile)
+        # indexzeile weglassen
+        next(datareader)
+        for row in datareader:
+            id = row[0]
+            print(id)
 
-        html = driver.page_source
+            if os.path.exists(f'profiles_subcat/webcomics/{id}.json'):
+                continue
+                
+            url_profile = (f"https://api.personality-database.com/api/v1/profile/{id}")
+            #url_profile = ("https://www.personality-database.com/profile/1")
+            
+            driver = webdriver.Chrome('C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe', options=options)
+            driver.get(url_profile)
+            #char_html = driver.page_source
+            time.sleep(0.1)
 
-        soup = BeautifulSoup(html, "html.parser")
+            html = driver.page_source
 
-        
-        driver.close()
-        pre = soup.find('pre').text
-        json_pre = json.loads(pre)
+            soup = BeautifulSoup(html, "html.parser")
 
-        with open(f'profiles_subcat/anime/{id}.json', 'w') as f:
-                json.dump(json_pre, f)
-                #f.write(data) this is html dump
+            driver.close()
+            try:
+                pre = soup.find('pre').text
+                json_pre = json.loads(pre)
+            except json.JSONDecodeError as j:
+                print(rf'Encountered JSON Error: {j}')
+                break
 
-    
-        
+            with open(f'profiles_subcat/webcomics/{id}.json', 'w') as f:
+                    json.dump(json_pre, f)
+                    #f.write(data) this is html dump
+
+            global scrapedElements
+            scrapedElements += 1
+
+while scrapedElements < row_count:
+    time.sleep(1)
+    scrape()
 
 
        
