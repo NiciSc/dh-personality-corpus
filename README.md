@@ -11,7 +11,7 @@
 | literature | 12 691 | :negative_squared_cross_mark: |
 | movie | 12 861 | :negative_squared_cross_mark: |
 | superheroes | 4 900 | :negative_squared_cross_mark: |
-| theatre | 3 151 | :negative_squared_cross_mark: |
-| tv | 14 830 | :negative_squared_cross_mark: |
+| theatre | 3 151 | :white_check_mark: |
+| tv | 14 830 | :white_check_mark: |
 | webcomics | 11 318 | :white_check_mark: |
-| **Total** | **103 479** | ![](https://geps.dev/progress/11?dangerColor=9c004b) |
+| **Total** | **103 479** | ![](https://geps.dev/progress/28?dangerColor=9c004b) |
