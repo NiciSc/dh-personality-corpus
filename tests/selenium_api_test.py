@@ -14,7 +14,7 @@ import os
 #                                                       __/ |            __/ |  #
 #                                                      |___/            |___/   #
 
-category = 'theatre'
+category = 'movie'
 user = 'raphi'
 
 # category has to be either:                                                    #
@@ -72,7 +72,6 @@ def scrape():
             
             driver = webdriver.Chrome(f'{driver_paths[user]}', options=options)
             driver.get(url_profile)
-            time.sleep(0.1)
 
             html = driver.page_source
 
