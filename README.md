@@ -3,7 +3,7 @@
 ## Scraping the corpus
 
 | Category | Size | Status |
-| --- | --- | --- |
+| :-- | --: | :-: |
 | anime | 13 207 | :negative_squared_cross_mark: |
 | cartoon | 12 090 | :negative_squared_cross_mark: |
 | comics | 3 405 | :negative_squared_cross_mark: |
