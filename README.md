@@ -4,9 +4,9 @@
 
 | Category | Size | Status |
 | :-- | --: | :-: |
-| anime | 13 207 | :negative_squared_cross_mark: |
-| cartoon | 12 090 | :negative_squared_cross_mark: |
-| comics | 3 405 | :negative_squared_cross_mark: |
+| anime | 13 207 | :white_check_mark: |
+| cartoon | 12 090 | :white_check_mark: |
+| comics | 3 405 | :sandclock: |
 | gaming | 15 026 | :negative_squared_cross_mark: |
 | literature | 12 691 | :white_check_mark: |
 | movie | 12 861 | :white_check_mark: |
