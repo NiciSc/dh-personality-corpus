@@ -14,7 +14,7 @@ import os
 #                                                       __/ |            __/ |  #
 #                                                      |___/            |___/   #
 
-category = 'movie'
+category = 'literature'
 user = 'raphi'
 
 # category has to be either:                                                    #
@@ -34,7 +34,7 @@ data_paths = {
 
 driver_paths = {
     'nici':r'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe',
-    'michelle':r'X:/YOUR/DRIVER/PATH/operadriver.exe',
+    'michelle':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/operadriver/operadriver.exe',
     'raphi':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
 }
 
@@ -84,8 +84,8 @@ def scrape():
             except json.JSONDecodeError as j:
                 print(f'Encountered JSON-Error: {j}\nRestarting...')
                 break
-            except AttributeError:
-                print(f'Encountered Attribute-Error: {j}\nRestarting...')
+            except AttributeError as a:
+                print(f'Encountered Attribute-Error: {a}\nRestarting...')
                 break
 
             with open(f'profiles_subcat/{category}/{id}.json', 'w') as f:
