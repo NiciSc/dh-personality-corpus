@@ -1,2 +1,5 @@
 profiles
 profiles_subcat
+geckodriver.log
+.vscode
+__pycache__
