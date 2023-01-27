@@ -34,7 +34,7 @@ data_paths = {
 
 driver_paths = {
     'nici':r'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe',
-    'michelle':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/operadriver/operadriver.exe',
+    'michelle':r'X:/YOUR/DRIVER/PATH/operadriver.exe',
     'raphi':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
 }
 
@@ -57,7 +57,7 @@ with open(data_paths[f'{category}'], 'r') as csvfile:
 scrapedElements = 0
 
 def scrape():
-    global scrapedElements, category, row_count, DRIVER_PATH, user
+    global scrapedElements, category, row_count, user
     scrapedElements = 0
     with open(data_paths[f'{category}'], 'r') as csvfile:
         datareader = csv.reader(csvfile)
