@@ -14,8 +14,8 @@ import os
 #                                                       __/ |            __/ |  #
 #                                                      |___/            |___/   #
 
-category = 'comics'
-user = 'nici'
+category = 'movie'
+user = 'raphi'
 
 # category has to be either:                                                    #
 # anime cartoon comics gaming literature movie superheroes theatre tv webcomics #
@@ -59,7 +59,7 @@ with open(data_paths[f'{category}'], 'r') as csvfile:
 scrapedElements = 0
 
 def scrape():
-    # global scrapedElements, category, row_count, DRIVER_PATH, user
+    global scrapedElements, category, row_count, DRIVER_PATH, user
     scrapedElements = 0
     with open(data_paths[f'{category}'], 'r') as csvfile:
         datareader = csv.reader(csvfile)
@@ -86,8 +86,8 @@ def scrape():
             except json.JSONDecodeError as j:
                 print(f'Encountered JSON-Error: {j}\nRestarting...')
                 break
-            except AttributeError:
-                print(f'Encountered Attribute-Error: {j}\nRestarting...')
+            except AttributeError as a:
+                print(f'Encountered Attribute-Error: {a}\nRestarting...')
                 break
 
             with open(f'profiles_subcat/{category}/{id}.json', 'w') as f:
