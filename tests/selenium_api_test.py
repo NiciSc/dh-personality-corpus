@@ -14,26 +14,28 @@ import os
 #                                                       __/ |            __/ |  #
 #                                                      |___/            |___/   #
 
-category = 'movie'
-user = 'raphi'
+category = 'comics'
+user = 'nici'
 
 # category has to be either:                                                    #
 # anime cartoon comics gaming literature movie superheroes theatre tv webcomics #
 
 data_paths = {
     'anime':'links/ids_theatre.csv', 
-    'cartoon':'links/ids_catroon.csv',
-    'comics':'links/ids_comics.csv',
+    'cartoon':'links/ids_cartoon.csv',
+    'comics':'links/ids_comics.csv',    
     'gaming':'links/ids_gaming.csv',
     'literature':'links/ids_literature.csv',
     'movie':'links/ids_movie.csv',
     'superheroes':'links/ids_superheroes.csv',
     'theatre':'links/ids_theatre.csv',
     'tv':'links/ids_tv.csv',
+
     'webcomics':'links/ids_webcomics.csv'}
 
 driver_paths = {
     'nici':r'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe',
+    
     'michelle':r'X:/YOUR/DRIVER/PATH/operadriver.exe',
     'raphi':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
 }
@@ -57,7 +59,7 @@ with open(data_paths[f'{category}'], 'r') as csvfile:
 scrapedElements = 0
 
 def scrape():
-    global scrapedElements, category, row_count, DRIVER_PATH, user
+    # global scrapedElements, category, row_count, DRIVER_PATH, user
     scrapedElements = 0
     with open(data_paths[f'{category}'], 'r') as csvfile:
         datareader = csv.reader(csvfile)
