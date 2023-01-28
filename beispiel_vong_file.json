@@ -1,0 +1,78 @@
+{
+  "id": 336091,
+  "mbti_profile": "Asakaze",
+  "contributor_create_date": "2021-06-09 00:30:38",
+  "is_active": true,
+  "is_approved": true,
+  "mbti_enneagram_type": "ESTP 8w7",
+  "mbti_type": "ESTP 8w7",
+  "pdb_public_access": true,
+  "wiki_description": "",
+  "watch_count": 29,
+  "comment_count": 8,
+  "vote_count": 64,
+  "vote_count_enneagram": 35,
+  "vote_count_mbti": 64,
+  "total_vote_counts": 155,
+  "personality_type": "ESTP - 8w7 - sp/so - 863 - SLE - SLUEN - VFLE - Choleric-Melancholic",
+  "type_updated_date": "2021-08-14 15:13:21",
+  "enneagram_vote": "",
+  "enneagram_vote_id": 0,
+  "mbti_vote": "",
+  "mbti_vote_id": 0,
+  "alt_subcategory": "",
+  "related_subcategories": "",
+  "cat_id": 8,
+  "category": "Anime & Manga",
+  "category_is_fictional": true,
+  "sub_cat_id": 19524,
+  "subcategory": "Sonny Boy",
+  "subcat_link_info": {
+    "sub_cat_id": 19524,
+    "cat_id": 8,
+    "property_id": 2,
+    "subcategory": "Sonny Boy"
+  },
+  "related_subcat_link_info": null,
+  "functions": ["Se", "Ti", "Fe", "Ni"],
+  "systems": [
+    {
+      "hex_color": "#888888",
+      "id": 1,
+      "personality_type": "XXXX",
+      "personality_type_id": 0,
+      "system_name": "Four Letter",
+      "system_vote_count": 62,
+      "user_vote_type_id": 0,
+      "vote_id": 0
+    }
+  ],
+  "breakdown_systems": {
+    "1": [
+      {
+        "myValue": "ESTP",
+        "personality_system_id": 1,
+        "personality_type": "ESTP",
+        "theCount": 37
+      },
+      {
+        "myValue": "ISTP",
+        "personality_system_id": 1,
+        "personality_type": "ISTP",
+        "theCount": 19
+      },
+      {
+        "myValue": "ESFP",
+        "personality_system_id": 1,
+        "personality_type": "ESFP",
+        "theCount": 6
+      }
+    ]
+  },
+  "mbti_letter_stats": [
+    { "type": "E", "percentage": "69%", "PercentageFloat": 0.6935483870967742 },
+    { "type": "S", "percentage": "100%", "PercentageFloat": 1 },
+    { "type": "T", "percentage": "90%", "PercentageFloat": 0.9032258064516129 },
+    { "type": "P", "percentage": "100%", "PercentageFloat": 1 }
+  ]
+}
