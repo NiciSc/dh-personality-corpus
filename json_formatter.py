@@ -35,9 +35,13 @@ for root, dirs, files in os.walk('profiles_subcat'):
             # Formats JSONs to fit external requirements
             external_json_dict = {}
             try:
-                raw_data['topic_info']['topic'].pop('posts')
-            except KeyError:
-                pass
+                for element in raw_data['topic_info']['topic']['posts']['posts']:
+                    for key in ['username', 'user_pic_path', 'user_personality_type', 'is_mod']:
+                        element.pop(key)
+                        print("Popped!")
+            except KeyError as error:
+                print(f"Hier gibts wohl kein {error}")
+            #print(raw_data)
             for category in external_json_format:
                 external_json_dict[category] = raw_data[category]
             external_json_string = json.dumps(external_json_dict)
