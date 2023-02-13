@@ -2,12 +2,13 @@
     - reads IDs from a CSV-file
     - scrapes website according to IDs
     - saves content as JSON"""
-import time
 import csv
 import json
 import os
-from selenium import webdriver
+import time
+
 from bs4 import BeautifulSoup
+from selenium import webdriver
 
 #       _                                      _                                #
 #      | |                                    | |                               #
@@ -25,21 +26,21 @@ USER = 'raphi'
 # anime cartoon comics gaming literature movie superheroes theatre tv webcomics #
 
 data_paths = {
-    'anime':'links/ids_anime.csv',
-    'cartoon':'links/ids_cartoon.csv',
-    'comics':'links/ids_comics.csv',
-    'gaming':'links/ids_gaming.csv',
-    'literature':'links/ids_literature.csv',
-    'movie':'links/ids_movie.csv',
-    'superheroes':'links/ids_superheroes.csv',
-    'theatre':'links/ids_theatre.csv',
-    'tv':'links/ids_tv.csv',
-    'webcomics':'links/ids_webcomics.csv'}
+    'anime': 'links/ids_anime.csv',
+    'cartoon': 'links/ids_cartoon.csv',
+    'comics': 'links/ids_comics.csv',
+    'gaming': 'links/ids_gaming.csv',
+    'literature': 'links/ids_literature.csv',
+    'movie': 'links/ids_movie.csv',
+    'superheroes': 'links/ids_superheroes.csv',
+    'theatre': 'links/ids_theatre.csv',
+    'tv': 'links/ids_tv.csv',
+    'webcomics': 'links/ids_webcomics.csv'}
 
 driver_paths = {
-    'nici':r'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe',
-    'michelle':r'X:/YOUR/DRIVER/PATH/operadriver.exe',
-    'raphi':r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe' 
+    'nici': r'C:/Users/Harry/AppData/Local/Programs/Python/Python310/chromedriver/chromedriver.exe',
+    'michelle': r'X:/YOUR/DRIVER/PATH/operadriver.exe',
+    'raphi': r'C:/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Scraping/chromedriver/chromedriver.exe'
 }
 
 # Chrome Options:
@@ -60,6 +61,7 @@ with open(data_paths[f'{CATEGORY}'], encoding='UTF-8') as csvfile:
 
 scrapedElements = 0
 
+
 def scrape():
     """Scrapes webcontent for each ID in CSV-file"""
     global scrapedElements
@@ -73,7 +75,8 @@ def scrape():
                 scrapedElements += 1
                 continue
 
-            url_profile = (f"https://api.personality-database.com/api/v1/profile/{csv_id}")
+            url_profile = (
+                f"https://api.personality-database.com/api/v1/profile/{csv_id}")
 
             driver = webdriver.Chrome(f'{driver_paths[USER]}', options=options)
             driver.get(url_profile)
@@ -96,6 +99,7 @@ def scrape():
             scrapedElements += 1
             print(rf'Scraping ID: {csv_id}')
             print(rf'{round((scrapedElements/row_count)*100,2)}% scraped')
+
 
 while scrapedElements < row_count:
     time.sleep(1)
