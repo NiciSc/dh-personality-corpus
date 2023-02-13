@@ -36,7 +36,7 @@ while (offset < 10500):
     for sorting in sortings:
 
         #for  subcat_id in subcat_ids:
-        response = requests.get(f"https://api.personality-database.com/api/v1/profiles?offset={offset}&limit=500&cid=13&pid=2&sort={sorting}&cat_id=13&property_id=2")
+        response = requests.get(f"https://api.personality-database.com/api/v1/profiles?offset={offset}&limit=500&cid=8&pid=2&sort={sorting}&cat_id=8&property_id=2")
     
         profiles = response.json()["profiles"]
 
@@ -54,5 +54,5 @@ while (offset < 10500):
 
 
 df = pd.DataFrame(ids)
-output_path = "C:/Users/Harry/Documents/GitHub/dh-personality-corpus/links/ids_theatre.csv"
+output_path = "C:/Users/Harry/Documents/GitHub/dh-personality-corpus/links/ids_anime.csv"
 df.to_csv(output_path, mode='a', header=not os.path.exists(output_path), index=False)
