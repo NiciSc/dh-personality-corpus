@@ -1,6 +1,7 @@
 """This module processes raw data in two ways:
     - make it publishable
     - make it easier to analyse"""
+    
 import os
 import json
 
@@ -14,6 +15,7 @@ def save_file(content, path):
     formatted_json.write(content)
     formatted_json.close()
 
+
 count = 0
 for root, dirs, files in os.walk('../internalCorpus'):
     for file in files:
@@ -22,6 +24,7 @@ for root, dirs, files in os.walk('../internalCorpus'):
             #    break
             if count % 1000 == 0 and count > 0:
                 print(f'{count} files processed')
+                
             with open(rf'{root}/{file}', encoding='UTF-8') as json_file:
                 raw_data = json.load(json_file)
             # Formats JSONs to fit internal requirements
