@@ -1,8 +1,9 @@
 """This module processes raw data in two ways:
     - make it publishable
     - make it easier to analyse"""
-import json
+    
 import os
+import json
 
 with open('vong_template.json', encoding='UTF-8') as file:
     internal_json_format = json.load(file)
@@ -19,10 +20,11 @@ count = 0
 for root, dirs, files in os.walk('../internalCorpus'):
     for file in files:
         if file.endswith(".json"):
-            # if count == 5:
+            #if count == 5:
             #    break
-            if count % 100 == 0 and count > 0:
-                print('100 files processed')
+            if count % 1000 == 0 and count > 0:
+                print(f'{count} files processed')
+                
             with open(rf'{root}/{file}', encoding='UTF-8') as json_file:
                 raw_data = json.load(json_file)
             # Formats JSONs to fit internal requirements
