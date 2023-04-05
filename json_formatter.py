@@ -1,8 +1,12 @@
 """This module processes raw data in two ways:
     - make it publishable
     - make it easier to analyse"""
-import os
 import json
+import os
+
+INTERNAL_PATH = r'/run/media/raphi/F6A8C18DA8C14CB5/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Korpus/formats/internal'
+RAW_PATH = r'/run/media/raphi/F6A8C18DA8C14CB5/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Korpus/data'
+EXTERNAL_PATH = r'/run/media/raphi/F6A8C18DA8C14CB5/Users/Raphael/Documents/Universität/Master/WS 22-23/Digital Humanities/Korpus/formats/external'
 
 with open('vong_template.json', encoding='UTF-8') as file:
     internal_json_format = json.load(file)
@@ -17,19 +21,12 @@ def save_file(content, path):
     formatted_json.close()
 
 
-for root, dirs, files in os.walk('profiles_subcat'):
-    if dirs != []:
-        for directory in dirs:
-            try:
-                os.mkdir(rf'externalCorpus/{directory}')
-            except OSError as error:
-                print(error)
-            try:
-                os.mkdir(rf'internalCorpus/{directory}')
-            except OSError as error:
-                print(error)
+count = 0
+for root, dirs, files in os.walk(RAW_PATH):
     for file in files:
         if file.endswith(".json"):
+            if (count % 10000) == 0:
+                print(f"{count} done!")
             with open(rf'{root}/{file}', encoding='UTF-8') as json_file:
                 raw_data = json.load(json_file)
             # Formats JSONs to fit external requirements
@@ -41,14 +38,18 @@ for root, dirs, files in os.walk('profiles_subcat'):
             for category in external_json_format:
                 external_json_dict[category] = raw_data[category]
             external_json_string = json.dumps(external_json_dict)
-            save_file(external_json_string, rf'externalCorpus/{root.split("/")[1]}/{file}')
+            save_file(external_json_string,
+                      rf'{EXTERNAL_PATH}/{file}')
             # Formats JSONs to fit internal requirements
             internal_json_dict = {}
             raw_data['breakdown_systems'] = raw_data['breakdown_systems']['1']
             raw_data['systems'] = raw_data['systems'][0]
+            raw_data['vote_count_mbti'] = raw_data['systems']['system_vote_count']
             for category in internal_json_format:
                 internal_json_dict[category] = raw_data[category]
             internal_json_string = json.dumps(internal_json_dict)
-            save_file(internal_json_string, rf'internalCorpus/{root.split("/")[1]}/{file}')
+            save_file(internal_json_string,
+                      rf'{INTERNAL_PATH}/{file}')
+            count += 1
 
     print(rf'Finished {root}')
