@@ -1,17 +1,31 @@
 # Progress
 
-## Scraping the corpus
+This repository was used to create the following corpus with data from personality-database.com
 
-| Category | Size | Status |
-| :-- | --: | :-: |
-| anime | 13 207 | :white_check_mark: |
-| cartoon | 12 090 | :white_check_mark: |
-| comics | 3 405 | :hourglass: |
-| gaming | 15 026 | :negative_squared_cross_mark: |
-| literature | 12 691 | :white_check_mark: |
-| movie | 12 861 | :white_check_mark: |
-| superheroes | 4 900 | :white_check_mark: |
-| theatre | 3 151 | :white_check_mark: |
-| tv | 14 830 | :white_check_mark: |
-| webcomics | 11 318 | :white_check_mark: |
-| **Total** | **103 479** | ![](https://geps.dev/progress/82?dangerColor=9c004b&warningColor=9c004b?successColor=9c004b)
+<!-- HIER DIE WERTE FÜR DEN GANZEN KORPUS NACHTRAGEN-->
+
+| Category    |        Size |
+| :---------- | ----------: |
+| anime       |      13 207 |
+| cartoon     |      12 090 |
+| comics      |       3 405 |
+| gaming      |      15 026 |
+| literature  |      12 691 |
+| movie       |      12 861 |
+| superheroes |       4 900 |
+| theatre     |       3 151 |
+| tv          |      14 830 |
+| webcomics   |      11 318 |
+| **Total**   | **103 479** |
+
+# File Structure
+
+.
+├── src # Source files (alternatively `lib` or `app`)
+├── docs # Documentation files (alternatively `doc`)
+├── test # Automated tests (alternatively `spec` or `tests`)
+├── utils # Tools and utilities
+├── LICENSE
+└── README.md
+
+# Requirements
