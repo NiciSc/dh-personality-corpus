@@ -1,1 +1,0 @@
-this is a folder with files we used for differnt tests on how to scrape the website.

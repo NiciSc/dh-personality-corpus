@@ -1,7 +1,2 @@
-profiles
-profiles_subcat
-geckodriver.log
 .vscode
 __pycache__
-externalCorpus
-internalCorpus
