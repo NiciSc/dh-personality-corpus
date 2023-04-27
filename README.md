@@ -17,6 +17,7 @@ The analysis was performed using Pandas, Seaborn, Matplotlib, scikit-learn and S
 ```
 .
 ├── README.md
+├── LICENSE                                         Repository is licensed the MIT license
 ├── resources
 │   ├── complete.feather                            Stores all data, used for analysis (DUMMY FILE)
 │   ├── profiles_with_actors.csv                    Profile IDs which require additional scraping (DUMMY FILE)
