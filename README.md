@@ -190,6 +190,6 @@ Each profile has the following properties:
 For access to the complete corpus (for **research purposes only**) or regarding any questions please contact:
 
 - Thomas.Schmidt@ur.de
-- michelle.lanzinge@student.ur.de
+- michelle.lanzinger@student.ur.de
 - nicole.schoenwerth@student.ur.de
 - raphael.wagner@student.ur.de
