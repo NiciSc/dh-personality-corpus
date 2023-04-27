@@ -8,7 +8,9 @@ The scraping was performed using Python 3.10 in a Jupyter Notebook environment w
 
 The analysis was performed using Pandas, Seaborn, Matplotlib, scikit-learn and SciPy using Python 3.10 in a Jupyter Notebook environment.
 
-**NO ACTUAL DATA IS INCLUDED IN THIS REPOSITORY**
+<p align="center">
+<b>NO ACTUAL DATA IS INCLUDED IN THIS REPOSITORY</b>
+</p>
 
 # Repository Structure
 
@@ -33,8 +35,6 @@ The analysis was performed using Pandas, Seaborn, Matplotlib, scikit-learn and S
     └── movietelevision_ids.ipynb                   Scrapes IDs which require additional data
                                                     output: profiles_with_actors.csv
 ```
-
-# Requirements
 
 # Installation
 
