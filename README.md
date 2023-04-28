@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 The Corpus includes 518,481 profiles as of March 15th 2023.
 
-## Distriution
+## Distribution
 
 The Corpus is made up of:
 
